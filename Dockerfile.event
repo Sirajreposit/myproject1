@@ -1,0 +1,21 @@
+FROM maven:3.9-eclipse-temurin-17 AS build
+WORKDIR /app
+
+# Copy parent POM
+COPY pom.xml .
+
+# Copy common-library
+COPY common-library/pom.xml common-library/pom.xml
+COPY common-library/src common-library/src
+
+# Copy event-service
+COPY event-service/pom.xml event-service/pom.xml
+COPY event-service/src event-service/src
+
+RUN mvn install -N -DskipTests
+RUN cd common-library && mvn clean install -DskipTests
+RUN cd event-service && mvn clean package -DskipTests -e
+
+FROM eclipse-temurin:17-jre-alpine
+COPY --from=build /app/event-service/target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]

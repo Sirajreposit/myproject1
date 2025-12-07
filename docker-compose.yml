@@ -1,0 +1,152 @@
+version: '3.8'
+
+services:
+  service-registry:
+    build:
+      context: .
+      dockerfile: Dockerfile.registry
+    ports:
+      - "8761:8761"
+    networks:
+      - revtickets-network
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+    depends_on:
+      - service-registry
+    networks:
+      - revtickets-network
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.auth
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/revtickets_auth?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - APP_FRONTEND_URL=http://localhost:4200
+    depends_on:
+      - service-registry
+      - mysql
+    networks:
+      - revtickets-network
+
+  event-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.event
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/revtickets_event?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+    depends_on:
+      - service-registry
+      - mysql
+    networks:
+      - revtickets-network
+
+  booking-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.booking
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/revtickets_booking?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+    depends_on:
+      - service-registry
+      - mysql
+    networks:
+      - revtickets-network
+
+  payment-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.payment
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/revtickets_payment?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+    depends_on:
+      - service-registry
+      - mysql
+    networks:
+      - revtickets-network
+
+  mysql:
+    image: mysql:8.0.33
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=revtickets_auth
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - revtickets-network
+
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - revtickets-network
+
+  review-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.review
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/revtickets_review
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+    depends_on:
+      - service-registry
+      - mongo
+    networks:
+      - revtickets-network
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.notification
+    ports:
+      - "8086:8086"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/revtickets_notification
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+    depends_on:
+      - service-registry
+      - mongo
+    networks:
+      - revtickets-network
+
+networks:
+  revtickets-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  mongo_data:
