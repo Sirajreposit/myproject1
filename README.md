@@ -67,11 +67,12 @@ So:
 - A$143.85 × 12 = A$1,726.20
 
 **Figure 4.2.1-A – Azure Pricing Calculator Configuration**
-<img width="940" height="499" alt="image" src="https://github.com/user-attachments/assets/54735fba-31a7-4f45-b69c-97f2cd04ca99" />
-<img width="940" height="499" alt="image" src="https://github.com/user-attachments/assets/362282cb-5a20-4e6b-a961-ff65c45af4f6" />
+<img width="1918" height="1015" alt="Azure-1" src="https://github.com/user-attachments/assets/54a80b2b-41b9-4c03-8288-dc8dda309b90" />
+<img width="866" height="218" alt="image" src="https://github.com/user-attachments/assets/c07aca57-5734-43be-b680-8c81fc4655ca" />
 **Figure 4.2.1-B – AWS Pricing Calculator Configuration**
-<img width="940" height="498" alt="image" src="https://github.com/user-attachments/assets/60745141-ad00-4975-8adb-f4e849ceb21f" />
-<img width="940" height="478" alt="image" src="https://github.com/user-attachments/assets/bebd6fb1-82a5-4549-8435-9b2cd20221dc" />
+<img width="1918" height="1018" alt="aws-1" src="https://github.com/user-attachments/assets/8f98b38a-f3c0-43d3-b118-af967f825110" />
+<img width="1914" height="628" alt="image" src="https://github.com/user-attachments/assets/9c034ea7-3a62-489f-b7b3-fcab1f4cf54d" />
+
 
 #### Five-Year Cost Projection for All Servers
 
