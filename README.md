@@ -67,8 +67,11 @@ So:
 - A$143.85 × 12 = A$1,726.20
 
 **Figure 4.2.1-A – Azure Pricing Calculator Configuration**
-
+<img width="940" height="499" alt="image" src="https://github.com/user-attachments/assets/54735fba-31a7-4f45-b69c-97f2cd04ca99" />
+<img width="940" height="499" alt="image" src="https://github.com/user-attachments/assets/362282cb-5a20-4e6b-a961-ff65c45af4f6" />
 **Figure 4.2.1-B – AWS Pricing Calculator Configuration**
+<img width="940" height="498" alt="image" src="https://github.com/user-attachments/assets/60745141-ad00-4975-8adb-f4e849ceb21f" />
+<img width="940" height="478" alt="image" src="https://github.com/user-attachments/assets/bebd6fb1-82a5-4549-8435-9b2cd20221dc" />
 
 #### Five-Year Cost Projection for All Servers
 
